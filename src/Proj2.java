@@ -1,6 +1,7 @@
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -30,12 +31,14 @@ public class Proj2 {
         // FINISH ME
 
         //create two array list to store the Real Estate Data
-        ArrayList<RealEstateData> storedArray = new ArrayList<RealEstateData>();
+        ArrayList<RealEstateData> originalArray = new ArrayList<RealEstateData>();
+        //ArrayList<RealEstateData> shuffledArray = new ArrayList<RealEstateData>();
         //Read the file line and store the data line by line.
         for(int i = 0; i < numLines && inputFileNameScanner.hasNextLine(); i++) {
             String line = inputFileNameScanner.nextLine().trim();//trims away any data
             if (line.isEmpty()) continue; // skip the empty lines
             String[] parts = line.split(",");
+
             //create a new RealEstateData object
             RealEstateData data = new RealEstateData(
                     Integer.parseInt(parts[0]), //ID
@@ -55,16 +58,110 @@ public class Proj2 {
                     parts[14], //isprimelocation
                     parts[15]); // lifespan
 
-                    storedArray.add(data);
+                    originalArray.add(data);
+                    //shuffledArray.add(data);
+
         }
         inputFileNameScanner.close();
 
-        //Sort the Data
-        Collections.sort(storedArray);
 
-        //print the data
-        for(RealEstateData data : storedArray) {
-            System.out.println(data);
+        //Sort the Data
+        Collections.sort(originalArray);
+
+        //Calculate the Insert and Search time for a sorted BST
+        BST<RealEstateData> bstsorted = new BST<>();
+        long startTime = System.nanoTime();
+        for (RealEstateData data : originalArray) {
+            bstsorted.insert(data);
+
         }
+        long endtime = System.nanoTime();
+        long time = endtime - startTime;
+        System.out.println("Sorted BST Insert Runtime: " + time);
+
+        //Search for an element in a Sorted BST
+        startTime = System.nanoTime();
+        for (RealEstateData data : originalArray) {
+            bstsorted.find(data);
+        }
+        endtime = System.nanoTime();
+        time = endtime - startTime;
+        System.out.println("Sorted BST Search Runtime: " + time);
+
+        //Calculate the Insert and Search time for a shuffled BST
+        Collections.shuffle(originalArray); //Shuffle the array
+        BST<RealEstateData> bstshuffled = new BST<>();
+        startTime = System.nanoTime();
+        for (RealEstateData data : originalArray) {
+            bstshuffled.insert(data);
+        }
+        endtime = System.nanoTime();
+        time = endtime - startTime;
+        System.out.println("Shuffled BST Insert Run Time: " + time);
+        //search in a shuffled Array
+        startTime = System.nanoTime();
+        for (RealEstateData data : originalArray) {
+            bstshuffled.find(data);
+        }
+        endtime = System.nanoTime();
+        time = endtime - startTime;
+        System.out.println("Shuffled BST Search time: " + time);
+
+        System.out.println();
+        System.out.println();
+
+        //Start of the AVL Calcualtions
+        Collections.sort(originalArray); //sort the array
+        AvlTree<RealEstateData> sortedAVL = new AvlTree<>();
+        startTime = System.nanoTime();
+        for (RealEstateData data : originalArray) {
+            sortedAVL.insert(data);
+
+        }
+        endtime = System.nanoTime();
+        time = endtime - startTime;
+        System.out.println("Sorted AVL Insert Runtime: " + time);
+
+        //Search for an element in a Sorted AVL
+        startTime = System.nanoTime();
+        for (RealEstateData data : originalArray) {
+            sortedAVL.contains(data);
+        }
+        endtime = System.nanoTime();
+        time = endtime - startTime;
+        System.out.println("Sorted AVL Search Runtime: " + time);
+
+        //Calculate the Insert and Search time for a shuffled BST
+        Collections.shuffle(originalArray); //Shuffle the array
+        Collections.shuffle(originalArray);
+        AvlTree<RealEstateData> shuffledAVL = new AvlTree<>();
+        startTime = System.nanoTime();
+        for (RealEstateData data : originalArray) {
+            shuffledAVL.insert(data);
+        }
+        endtime = System.nanoTime();
+        time = endtime - startTime;
+        System.out.println("Shuffled AVL Insert Run Time: " + time);
+
+        //search in a shuffled Array
+        startTime = System.nanoTime();
+        for (RealEstateData data : originalArray) {
+            shuffledAVL.contains(data);
+        }
+        endtime = System.nanoTime();
+        time = endtime - startTime;
+        System.out.println("Shuffled AVL Search time: " + time);
+
+    }
+    public void writeToFile(String content, String filePath) {
+        try {
+            //FileWriter and BufferedWriter to assure that when writeToFile is called it can write to a file.
+            FileWriter fileWriter = new FileWriter(filePath, true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            fileWriter.write(content);
+            bufferedWriter.close();
+            fileWriter.close();
+        }
+        catch (IOException ignored) {}
     }
 }
