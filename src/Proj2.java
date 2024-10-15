@@ -78,6 +78,8 @@ public class Proj2 {
         long endtime = System.nanoTime();
         long time = endtime - startTime;
         System.out.println("Sorted BST Insert Runtime: " + time);
+        writeToFile("Sorted BST Insert Runtime: " + String.valueOf(time), "./output.txt");
+        writeToFile("\n", "./output.txt");
 
         //Search for an element in a Sorted BST
         startTime = System.nanoTime();
@@ -87,6 +89,8 @@ public class Proj2 {
         endtime = System.nanoTime();
         time = endtime - startTime;
         System.out.println("Sorted BST Search Runtime: " + time);
+        writeToFile("Sorted BST Search Runtime: " + String.valueOf(time), "./output.txt");
+        writeToFile("\n", "./output.txt");
 
         //Calculate the Insert and Search time for a shuffled BST
         Collections.shuffle(originalArray); //Shuffle the array
@@ -97,7 +101,10 @@ public class Proj2 {
         }
         endtime = System.nanoTime();
         time = endtime - startTime;
-        System.out.println("Shuffled BST Insert Run Time: " + time);
+        System.out.println("Shuffled BST Insert Runtime: " + time);
+        writeToFile("Shuffled BST Insert Runtime: " + String.valueOf(time), "./output.txt");
+        writeToFile("\n", "./output.txt");
+
         //search in a shuffled Array
         startTime = System.nanoTime();
         for (RealEstateData data : originalArray) {
@@ -105,7 +112,12 @@ public class Proj2 {
         }
         endtime = System.nanoTime();
         time = endtime - startTime;
-        System.out.println("Shuffled BST Search time: " + time);
+        System.out.println("Shuffled BST Search Runtime: " + time);
+        writeToFile("Shuffled BST Search Runtime: " + String.valueOf(time), "./output.txt");
+        writeToFile("\n", "./output.txt");
+
+        writeToFile("\n", "./output.txt");
+        writeToFile("\n", "./output.txt");
 
         System.out.println();
         System.out.println();
@@ -121,6 +133,8 @@ public class Proj2 {
         endtime = System.nanoTime();
         time = endtime - startTime;
         System.out.println("Sorted AVL Insert Runtime: " + time);
+        writeToFile("Sorted AVL Insert Runtime: " + String.valueOf(time), "./output.txt");
+        writeToFile("\n", "./output.txt");
 
         //Search for an element in a Sorted AVL
         startTime = System.nanoTime();
@@ -130,11 +144,12 @@ public class Proj2 {
         endtime = System.nanoTime();
         time = endtime - startTime;
         System.out.println("Sorted AVL Search Runtime: " + time);
+        writeToFile("Sorted AVL Search Runtime: " + String.valueOf(time), "./output.txt");
+        writeToFile("\n", "./output.txt");
 
         //Calculate the Insert and Search time for a shuffled BST
         Collections.shuffle(originalArray); //Shuffle the array
-        Collections.shuffle(originalArray);
-        AvlTree<RealEstateData> shuffledAVL = new AvlTree<>();
+        AvlTree<RealEstateData> shuffledAVL = new AvlTree<RealEstateData>();
         startTime = System.nanoTime();
         for (RealEstateData data : originalArray) {
             shuffledAVL.insert(data);
@@ -142,6 +157,8 @@ public class Proj2 {
         endtime = System.nanoTime();
         time = endtime - startTime;
         System.out.println("Shuffled AVL Insert Run Time: " + time);
+        writeToFile("Shuffled AVL Insert Runtime: " + String.valueOf(time), "./output.txt");
+        writeToFile("\n", "./output.txt");
 
         //search in a shuffled Array
         startTime = System.nanoTime();
@@ -151,9 +168,11 @@ public class Proj2 {
         endtime = System.nanoTime();
         time = endtime - startTime;
         System.out.println("Shuffled AVL Search time: " + time);
-
+        writeToFile("\n", "./output.txt");
+        writeToFile(String.valueOf(time), "./output.txt");
     }
-    public void writeToFile(String content, String filePath) {
+    //implement the writeToFile path.
+    public static void writeToFile(String content, String filePath) {
         try {
             //FileWriter and BufferedWriter to assure that when writeToFile is called it can write to a file.
             FileWriter fileWriter = new FileWriter(filePath, true);

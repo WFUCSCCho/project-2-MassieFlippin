@@ -57,7 +57,7 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
         //compareResult created to help compare nodes when looking for deletion.
         int compareResult = x.compareTo(t.element);
         //checks the left node
-        if ( compareResult < 0 ){
+        if (compareResult < 0 ){
             t.left = remove( x, t.left );
         }
         //checks the right node
