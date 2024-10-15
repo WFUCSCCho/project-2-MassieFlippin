@@ -32,22 +32,17 @@ public class Proj2 {
         //create two array list to store the Real Estate Data
         ArrayList<RealEstateData> storedArray = new ArrayList<RealEstateData>();
         //Read the file line and store the data line by line.
-        while (inputFileNameScanner.hasNextLine()) {
+        for(int i = 0; i < numLines && inputFileNameScanner.hasNextLine(); i++) {
             String line = inputFileNameScanner.nextLine().trim();//trims away any data
             if (line.isEmpty()) continue; // skip the empty lines
             String[] parts = line.split(",");
             //create a new RealEstateData object
             RealEstateData data = new RealEstateData(
-                    //ID
-                    Integer.parseInt(parts[0]),
-                    //possessionStatus
-                    parts[1],
-                    //Commercial
-                    parts[2],
-                    //Developer
-                    parts[3],
-                    //price
-                    Integer.parseInt(parts[4]),
+                    Integer.parseInt(parts[0]), //ID
+                    parts[1], //PossesionStatus
+                    parts[2], // Commercial
+                    parts[3], //Developer
+                    Integer.parseInt(parts[4]), //price
                     Integer.parseInt(parts[5]), //sqftprice
                     parts[6],//furnished
                     Integer.parseInt(parts[7]), //bathroom
