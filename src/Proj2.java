@@ -168,8 +168,9 @@ public class Proj2 {
         endtime = System.nanoTime();
         time = endtime - startTime;
         System.out.println("Shuffled AVL Search time: " + time);
+        writeToFile("Shuffled AVL Search time: " + String.valueOf(time), "./output.txt");
+
         writeToFile("\n", "./output.txt");
-        writeToFile(String.valueOf(time), "./output.txt");
     }
     //implement the writeToFile path.
     public static void writeToFile(String content, String filePath) {
