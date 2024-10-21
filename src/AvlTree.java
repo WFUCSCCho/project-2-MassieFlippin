@@ -310,7 +310,7 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      */
     private AvlNode<AnyType> doubleWithLeftChild( AvlNode<AnyType> k3 ) {
 	// FINISH ME
-        k3.left = rotateWithLeftChild( k3.left );
+        k3.left = rotateWithRightChild( k3.left );
         return rotateWithLeftChild( k3 );
     }
 
@@ -322,7 +322,7 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      */
     private AvlNode<AnyType> doubleWithRightChild( AvlNode<AnyType> k1 ) {
 	// FINISH ME
-        k1.right = rotateWithRightChild( k1.right );
+        k1.right = rotateWithLeftChild( k1.right );
         return rotateWithRightChild( k1 );
     }
 
