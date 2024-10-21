@@ -36,31 +36,34 @@ public class Proj2 {
         //Read the file line and store the data line by line.
         for(int i = 0; i < numLines && inputFileNameScanner.hasNextLine(); i++) {
             String line = inputFileNameScanner.nextLine().trim();//trims away any data
-            if (line.isEmpty()) continue; // skip the empty lines
+            if (line.isEmpty()) continue;// skip the empty lines
             String[] parts = line.split(",");
-
             //create a new RealEstateData object
-            RealEstateData data = new RealEstateData(
-                    Integer.parseInt(parts[0]), //ID
-                    parts[1], //PossesionStatus
-                    parts[2], // Commercial
-                    parts[3], //Developer
-                    Integer.parseInt(parts[4]), //price
-                    Integer.parseInt(parts[5]), //sqftprice
-                    parts[6],//furnished
-                    Integer.parseInt(parts[7]), //bathroom
-                    parts[8], //direction facing
-                    parts[9], //transaction
-                    parts[10], //type
-                    parts[11], //city
-                    Integer.parseInt(parts[12]), // bedrooms
-                    Integer.parseInt(parts[13]), //floors
-                    parts[14], //isprimelocation
-                    parts[15]); // lifespan
-
-                    originalArray.add(data);
-                    //shuffledArray.add(data);
-
+            try {
+                if (parts.length < 16) {
+                    continue;
+                }
+                RealEstateData data = new RealEstateData(
+                        Integer.parseInt(parts[0]), //ID
+                        parts[1], //PossesionStatus
+                        parts[2], // Commercial
+                        parts[3], //Developer
+                        Integer.parseInt(parts[4]), //price
+                        Integer.parseInt(parts[5]), //sqftprice
+                        parts[6],//furnished
+                        Integer.parseInt(parts[7]), //bathroom
+                        parts[8], //direction facing
+                        parts[9], //transaction
+                        parts[10], //type
+                        parts[11], //city
+                        Integer.parseInt(parts[12]), // bedrooms
+                        Integer.parseInt(parts[13]), //floors
+                        parts[14], //isprimelocation
+                        parts[15]); // lifespan
+                originalArray.add(data);
+            }catch (NumberFormatException e) {
+                System.err.println("Error parsing line: " + line);
+            }
         }
         inputFileNameScanner.close();
 
@@ -117,7 +120,6 @@ public class Proj2 {
         writeToFile("\n", "./output.txt");
 
         writeToFile("\n", "./output.txt");
-        writeToFile("\n", "./output.txt");
 
         System.out.println();
         System.out.println();
@@ -169,7 +171,7 @@ public class Proj2 {
         time = endtime - startTime;
         System.out.println("Shuffled AVL Search time: " + time);
         writeToFile("Shuffled AVL Search time: " + String.valueOf(time), "./output.txt");
-
+        writeToFile("\n", "./output.txt");
         writeToFile("\n", "./output.txt");
     }
     //implement the writeToFile path.

@@ -1,0 +1,50 @@
+Sorted BST Insert Runtime: 12079500
+Sorted BST Search Runtime: 6464300
+Shuffled BST Insert Runtime: 580600
+Shuffled BST Search Runtime: 545000
+
+Sorted AVL Insert Runtime: 2889600
+Sorted AVL Search Runtime: 580600
+Shuffled AVL Insert Runtime: 763300
+Shuffled AVL Search time: 337800
+
+Sorted BST Insert Runtime: 11044000
+Sorted BST Search Runtime: 6501200
+Shuffled BST Insert Runtime: 966500
+Shuffled BST Search Runtime: 501700
+
+Sorted AVL Insert Runtime: 2446600
+Sorted AVL Search Runtime: 372500
+Shuffled AVL Insert Runtime: 924200
+Shuffled AVL Search time: 229700
+
+Sorted BST Insert Runtime: 11736900
+Sorted BST Search Runtime: 6193900
+Shuffled BST Insert Runtime: 1058900
+Shuffled BST Search Runtime: 501600
+
+Sorted AVL Insert Runtime: 2250000
+Sorted AVL Search Runtime: 417100
+Shuffled AVL Insert Runtime: 1077600
+Shuffled AVL Search time: 357000
+
+Sorted BST Insert Runtime: 8893100
+Sorted BST Search Runtime: 6088700
+Shuffled BST Insert Runtime: 687000
+Shuffled BST Search Runtime: 578600
+
+Sorted AVL Insert Runtime: 1950900
+Sorted AVL Search Runtime: 452600
+Shuffled AVL Insert Runtime: 953400
+Shuffled AVL Search time: 231500
+
+Sorted BST Insert Runtime: 10613000
+Sorted BST Search Runtime: 7515600
+Shuffled BST Insert Runtime: 589700
+Shuffled BST Search Runtime: 635800
+
+Sorted AVL Insert Runtime: 1994500
+Sorted AVL Search Runtime: 420400
+Shuffled AVL Insert Runtime: 1168400
+Shuffled AVL Search time: 361700
+
