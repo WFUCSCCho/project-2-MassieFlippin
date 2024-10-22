@@ -1,3 +1,9 @@
+/**
+ @file: Proj2.java
+ @description: This program implements the main for project 2. It runs the insertions and deletions for the BST and AVL
+ @author: Massie Flippin
+ @date: October 22nd , 2024
+ ************************/
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -32,7 +38,6 @@ public class Proj2 {
 
         //create two array list to store the Real Estate Data
         ArrayList<RealEstateData> originalArray = new ArrayList<RealEstateData>();
-        //ArrayList<RealEstateData> shuffledArray = new ArrayList<RealEstateData>();
         //Read the file line and store the data line by line.
         for(int i = 0; i < numLines && inputFileNameScanner.hasNextLine(); i++) {
             String line = inputFileNameScanner.nextLine().trim();//trims away any data
@@ -43,6 +48,7 @@ public class Proj2 {
                 if (parts.length < 16) {
                     continue;
                 }
+                //store the data
                 RealEstateData data = new RealEstateData(
                         Integer.parseInt(parts[0]), //ID
                         parts[1], //PossesionStatus
@@ -60,7 +66,9 @@ public class Proj2 {
                         Integer.parseInt(parts[13]), //floors
                         parts[14], //isprimelocation
                         parts[15]); // lifespan
+                //add data to the Array
                 originalArray.add(data);
+                //Catch statement showing where there are errors in the data, skip and continue with insertion / search
             }catch (NumberFormatException e) {
                 System.err.println("Error parsing line: " + line);
             }
@@ -84,7 +92,7 @@ public class Proj2 {
         writeToFile("Sorted BST Insert Runtime: " + String.valueOf(time), "./output.txt");
         writeToFile("\n", "./output.txt");
 
-        //Search for an element in a Sorted BST
+        //Search for an element in a Sorted BST and calculate the time
         startTime = System.nanoTime();
         for (RealEstateData data : originalArray) {
             bstsorted.find(data);
@@ -108,7 +116,7 @@ public class Proj2 {
         writeToFile("Shuffled BST Insert Runtime: " + String.valueOf(time), "./output.txt");
         writeToFile("\n", "./output.txt");
 
-        //search in a shuffled Array
+        //search in a shuffled Array and calculate the time
         startTime = System.nanoTime();
         for (RealEstateData data : originalArray) {
             bstshuffled.find(data);
@@ -118,10 +126,8 @@ public class Proj2 {
         System.out.println("Shuffled BST Search Runtime: " + time);
         writeToFile("Shuffled BST Search Runtime: " + String.valueOf(time), "./output.txt");
         writeToFile("\n", "./output.txt");
-
         writeToFile("\n", "./output.txt");
 
-        System.out.println();
         System.out.println();
 
         //Start of the AVL Calcualtions

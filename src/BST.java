@@ -4,7 +4,7 @@
  * data in a way that allows for efficient searching, insertion, and deletion of delements. It has a stored
  * structure that enables quick access to data.
  * @author: Massie Flippin
- * @date: September 26th , 2024
+ * @date: October 22nd , 2024
  ************************/
 import java.util.Iterator;
 import java.util.Stack;
