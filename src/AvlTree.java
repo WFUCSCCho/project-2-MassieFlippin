@@ -327,7 +327,7 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      */
     private AvlNode<AnyType> doubleWithLeftChild( AvlNode<AnyType> k3 ) {
 	// FINISH ME
-        //implements a double rotation
+        //implements a double rotation and returns
         k3.left = rotateWithRightChild( k3.left );
         return rotateWithLeftChild( k3 );
     }
