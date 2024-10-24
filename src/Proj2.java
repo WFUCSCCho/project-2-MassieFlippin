@@ -68,7 +68,7 @@ public class Proj2 {
                         parts[15]); // lifespan
                 //add data to the Array
                 originalArray.add(data);
-                //Catch statement showing where there are errors in the data, skip and continue with insertion / search
+                //Catch statement showing what lines might contain faulty data, skip and continue with insertion / search
             }catch (NumberFormatException e) {
                 System.err.println("Error parsing line: " + line);
             }
