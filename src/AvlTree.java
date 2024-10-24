@@ -1,3 +1,10 @@
+/**
+ * @file: filename.java
+ * @description: This program implements the AVL Tree. There are constructors and methods to help perform rotations on the tree.
+ * @author: Massie Flippin
+ * @date: October 22, 2024
+        ∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗∗*/
+
 // AvlTree class
 //
 // CONSTRUCTION: with no initializer
@@ -52,6 +59,37 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      */
     private AvlNode<AnyType> remove( AnyType x, AvlNode<AnyType> t ) {
 	// FINISH ME
+        //check to see if the item is null, if is do nothing.
+        if ( t == null ) return t;
+        //compareResult created to help compare nodes when looking for deletion.
+        int compareResult = x.compareTo(t.element);
+        //checks the left node
+        if (compareResult < 0 ){
+            t.left = remove( x, t.left );
+        }
+        //checks the right node
+        else if (compareResult > 0 ){
+            t.right = remove( x, t.right );
+        }
+        //node to be deleted is found
+        else{
+            //node has two children
+            if (t.left !=null && t.right != null){
+                //replace with smallest in the right subtree
+                t.element = findMin(t.right).element;
+                //remove the smallest in the right subtree
+                t.right = remove(t.element,t.right);
+            }else{
+                //node with only one child or no child.
+                t = (t.left != null) ? t.left : t.right;
+            }
+        }
+        //if tree had only one node and now its null, return null;
+        if( t == null ) return t;
+        //update the height of the current node
+        t.height = Math.max(height(t.left), height(t.right)) + 1;
+        //balance the node after deletion to maintain the AVL
+        return balance( t );
     }
 
     /**
@@ -112,20 +150,40 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
 
     // Assume t is either balanced or within one of being balanced
     private AvlNode<AnyType> balance( AvlNode<AnyType> t ) {
-	// FINISH ME
+        // FINISH ME
+        //check to see if it is null, return it.
+        if (t == null)
+            return t;
+        //check if left subtree is too tall by comparing the heights of left and right subtrees
+        if(height(t.left) - height(t.right) > ALLOWED_IMBALANCE)
+            // If the left subtree of t's left child is taller or equal in height to its right subtree, perform a single rotation.
+            if (height(t.left.left) >= height(t.left.right))
+                t = rotateWithLeftChild(t); // rotate left to balance
+            else
+                t = doubleWithLeftChild(t); //first rotate left on left child, then rotate right on right child
+        else
+            //check if the right subtree is too tall in comparison to the left subtree.
+        if (height(t.right) - height(t.left) > ALLOWED_IMBALANCE)
+            if(height(t.right.right) >= height(t.right.left))
+                t = rotateWithRightChild(t);
+            else
+                t = doubleWithRightChild(t);
+            //update the height of the current node t
+        t.height = Math.max(height(t.left), height(t.right)) + 1;
+        return t;
     }
-
+    //checks the balance of the tree to assure the depth is correct.
     public void checkBalance( ) {
         checkBalance( root );
     }
-
+    //Checks balance to assure that AVL height is balanced.
     private int checkBalance( AvlNode<AnyType> t ) {
         if( t == null )
             return -1;
-
         if( t != null ) {
             int hl = checkBalance( t.left );
             int hr = checkBalance( t.right );
+            //if height is not correct print an error code.
             if( Math.abs( height( t.left ) - height( t.right ) ) > 1 ||
                     height( t.left ) != hl || height( t.right ) != hr )
                 System.out.println( "OOPS!!" );
@@ -143,6 +201,18 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      */
     private AvlNode<AnyType> insert( AnyType x, AvlNode<AnyType> t ) {
 	// FINISH ME
+        //help insert an object into the AVL tree.
+        if (t == null)
+            return new AvlNode<>(x , null, null);
+        int compareResult = x.compareTo(t.element);
+        //compares the result for insertion and places into the proper subtree.
+        if ( compareResult < 0 )
+            t.left = insert( x, t.left );
+        else if (compareResult > 0 )
+            t.right = insert( x, t.right );
+        else
+            ; //duplicate and do nothing
+        return balance(t);
     }
 
     /**
@@ -152,6 +222,13 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      */
     private AvlNode<AnyType> findMin( AvlNode<AnyType> t ) {
 	// FINISH ME
+        //finds the min to help return null.
+        if ( t == null )
+            return null;
+        while ( t.left != null ) {
+            t = t.left;
+        }
+        return t;
     }
 
     /**
@@ -161,6 +238,12 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      */
     private AvlNode<AnyType> findMax( AvlNode<AnyType> t ) {
 	// FINISH ME
+        //finds the max for rotation help
+        if( t == null )
+            return null;
+        while(t.right != null)
+            t = t.right;
+        return t;
     }
 
     /**
@@ -171,6 +254,17 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      */
     private boolean contains( AnyType x, AvlNode<AnyType> t ) {
 	// FINISH ME
+        //checks that the AVL node contains an element and compare it to the result of CompareTo.
+        if ( t == null )
+            return false;
+        int compareResult = x.compareTo(t.element);
+        if (compareResult < 0 )
+            return contains( x, t.left );
+        else if (compareResult > 0 ) {
+            return contains( x, t.right );
+
+        }else
+            return true;
     }
 
     /**
@@ -179,6 +273,11 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      */
     private void printTree( AvlNode<AnyType> t ) {
 	// FINISH ME
+        //prints the tree to show if tree is empty.
+        if(isEmpty( ) )
+            System.out.println("Empty Tree");
+        else
+            printTree( t.left );
     }
 
     /**
@@ -195,6 +294,13 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      */
     private AvlNode<AnyType> rotateWithLeftChild( AvlNode<AnyType> k2 ) {
 	// FINISH ME
+        //Rotates with the left child store the heights for both k1 & k2
+        AvlNode<AnyType> k1 = k2.left;
+        k2.left = k1.right;
+        k1.right = k2;
+        k2.height = Math.max(height(k2.left), height(k2.right)) + 1;
+        k1.height = Math.max(height(k1.left), height(k1.right)) + 1;
+        return k1;
     }
 
     /**
@@ -204,6 +310,13 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      */
     private AvlNode<AnyType> rotateWithRightChild( AvlNode<AnyType> k1 ) {
 	// FINISH ME
+        //rotate with the right child and store the height for k1&k2
+        AvlNode<AnyType> k2 = k1.right;
+        k1.right = k2.left;
+        k2.left = k1;
+        k1.height = Math.max(height(k1.left), height(k1.right)) + 1;
+        k2.height = Math.max(height(k2.left), height(k2.right)) + 1;
+        return k2;
     }
 
     /**
@@ -214,6 +327,9 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      */
     private AvlNode<AnyType> doubleWithLeftChild( AvlNode<AnyType> k3 ) {
 	// FINISH ME
+        //implements a double rotation and returns
+        k3.left = rotateWithRightChild( k3.left );
+        return rotateWithLeftChild( k3 );
     }
 
     /**
@@ -224,6 +340,9 @@ public class AvlTree<AnyType extends Comparable<? super AnyType>> {
      */
     private AvlNode<AnyType> doubleWithRightChild( AvlNode<AnyType> k1 ) {
 	// FINISH ME
+        //double rotates with the right child
+        k1.right = rotateWithLeftChild( k1.right );
+        return rotateWithRightChild( k1 );
     }
 
     private static class AvlNode<AnyType> {

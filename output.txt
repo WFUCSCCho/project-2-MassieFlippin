@@ -1,0 +1,10 @@
+Sorted BST Insert Runtime: 1491500
+Sorted BST Search Runtime: 330100
+Shuffled BST Insert Runtime: 47300
+Shuffled BST Search Runtime: 77700
+
+Sorted AVL Insert Runtime: 701800
+Sorted AVL Search Runtime: 50300
+Shuffled AVL Insert Runtime: 163800
+Shuffled AVL Search time: 43700
+
